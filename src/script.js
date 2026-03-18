@@ -113,24 +113,21 @@ productContainer.innerHTML = products
   .map((product) => {
     console.log(product.image.desktop);
     return `
-  <div id="product-container">
-  <div id ="product" class="ml-3 gap-2">
+  <div id ="product" class="md:ml-3 ml-0 gap-4">
   <div class="relative"><img src="${product.image.desktop}" alt="${
     product.name
-  }" class="w-[350px]">
-  <button id ="btn-${product.id}" class="add-btn border border-[#ad8985ff] bg-amber-50 w-[150px] h-10 rounded-[15px] flex gap-2 items-center justify-center absolute lg:top-[280px] top-[310px] lg:left-20 left-[100px]" onclick="addToCart('${product.id}')">
+  }" class="w-full lg:h-[300px] sm:h-[250px] h-[200px] object-cover rounded-lg">
+  <button id ="btn-${product.id}" class="add-btn border border-[#ad8985ff] bg-amber-50 w-[150px] h-10 rounded-[15px] flex gap-2 items-center justify-center absolute bottom-[-20px] left-1/2 -translate-x-1/2" onclick="addToCart('${product.id}')">
      <i class="fa-solid fa-cart-shopping text-red-500"></i>
     <p class ="text-black font-bold">Add to Cart</p>
   </button>
-  <div id="product-info" class="flex flex-col gap-1 mt-8">
+  </div>
+  <div id="product-info" class="flex flex-col gap-1 mt-5">
   <h3 class="category text-gray-400">${product.category}</h3>
   <h1 id ="name" class ="text-[16px] font-bold">${product.name}</h1>
   <p id ="price" style ="color:red;">$${product.price.toFixed(2)}</p>
   </div>
- </div>
   </div>
-  
- </div>
  `;
   })
   .join("");
@@ -153,10 +150,10 @@ function updateCart() {
   const cartDiv = document.getElementById("cart");
   if (cart.length === 0) {
     cartDiv.className =
-      "flex flex-col p-4 gap-3 border-0 w-[350px] min-h-[250px] rounded-md bg-white mb-20";
+      "flex flex-col p-4 gap-3 border-0 md:w-[350px] w-full min-h-[250px] rounded-md bg-white mb-20";
   } else {
     cartDiv.className =
-      "flex flex-col p-4 gap-3 border-0 w-[350px] rounded-md bg-white mb-20";
+      "flex flex-col p-4 gap-3 border-0 md:w-[350px] w-full rounded-md bg-white mb-20";
   }
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
   const totalPrice = cart.reduce(
@@ -199,7 +196,7 @@ function updateButton(productid) {
   const qty = cartItem ? cartItem.quantity : 0;
   const btn = document.getElementById(`btn-${productid}`);
   btn.outerHTML = `
-<div id="btn-${productid}" class ="flex items-center absolute lg:top-[280px] top-[310px] lg:left-20 left-[100px] bg-red-500 rounded-[15px] w-[150px] h-10">
+<div id="btn-${productid}" class ="flex items-center absolute bottom-[-20px] left-1/2 -translate-x-1/2 bg-red-500 rounded-[15px] w-[150px] h-10">
 <button onclick ="changeQty('${productid}', -1)" class="text-white font-bold text-xl w-10 h-full rounded-l-[15px] hover:bg-red-600">-</button>
 <span class="text-white font-bold flex-1 text-center">${qty}</span>
 <button onclick="changeQty('${productid}', 1)" class ="text-white font-bold text-xl w-10 h-full rounded-r-[15px] hover:bg-red-600">+</button>
@@ -211,7 +208,7 @@ function changeQty(productid, change) {
   if (cartItem.quantity === 0) {
     cart = cart.filter((item) => item.id !== productid);
     const btn = document.getElementById(`btn-${productid}`);
-    btn.outerHTML = `<button id ="btn-${productid}" class="add-btn border border-[#ad8985ff] bg-amber-50 w-[150px] h-10 rounded-[15px] flex gap-2 items-center justify-center absolute lg:top-[280px] top-[310px] lg:left-20 left-[100px]" onclick="addToCart('${product.id}')">
+    btn.outerHTML = `<button id ="btn-${productid}" class="add-btn border border-[#ad8985ff] bg-amber-50 w-[150px] h-10 rounded-[15px] flex gap-2 items-center justify-center absolute bottom-[-20px] left-1/2 -translate-x-1/2" onclick="addToCart('${product.id}')">
      <i class="fa-solid fa-cart-shopping text-red-500"></i>
     <p class ="text-black font-bold">Add to Cart</p>
   </button>`;
@@ -256,7 +253,7 @@ function startNewOrder() {
     const btn = document.getElementById(`btn-${product.id}`);
     if (btn) {
       btn.outerHTML = `
-      <button id="btn-${product.id}" class="add-btn border border-[#ad8985ff] bg-amber-50 w-[150px] h-10 rounded-[15px] flex gap-2 items-center justify-center absolute top-[280px] left-20" onclick="addToCart('${product.id}')">
+      <button id="btn-${product.id}" class="add-btn border border-[#ad8985ff] bg-amber-50 w-[150px] h-10 rounded-[15px] flex gap-2 items-center justify-center absolute bottom-[-20px] left-1/2 -translate-x-1/2" onclick="addToCart('${product.id}')">
        <i class="fa-solid fa-cart-shopping text-red-500"></i>
     <p class ="text-black font-bold">Add to Cart</p>
   </button>`;
